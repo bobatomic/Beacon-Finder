@@ -19,6 +19,7 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
         self.locationManager.delegate = self
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.locationManager.requestCurrentLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,12 +32,21 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
         })
     }
     
-    //MARK: LocationManagerDelegate
-    
-    func locationDidFailBuildingBeaconsWithError(error: LocationError) {
+    func showErrorMessage(error: LocationError) {
         let alertView = UIAlertView(title: "Beacon Error", message: error.description, delegate: self, cancelButtonTitle: "OK")
         alertView.alertViewStyle = .Default
         alertView.show()
+    }
+    
+    //MARK: LocationManagerDelegate
+    
+    func locationDidFailBuildingBeaconsWithError(error: LocationError) {
+        self.showErrorMessage(error)
+
+    }
+    
+    func locationDidFailWithAuthorizationError(error: LocationError) {
+        self.showErrorMessage(error)
     }
     
     func locationDidupdateRegionWithBeacons(beacons: [IBeacon]!) {
@@ -55,6 +65,8 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
     func locationDidFailFindingCurrentLocalityWithError(error: LocationError) {
         //FIXME: Implement method for locationDidFailFindingCurrentLocalityWithError
     }
+    
+    
 
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation

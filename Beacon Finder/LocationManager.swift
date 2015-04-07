@@ -24,8 +24,17 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func requestCurrentLocation() {
-        if CLLocationManager.locationServicesEnabled(){
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            manager.requestWhenInUseAuthorization()
+            return
+        }
+        
+        let status = CLLocationManager.authorizationStatus()
+        
+        if CLLocationManager.locationServicesEnabled() &&  (status == .AuthorizedAlways || status == .AuthorizedWhenInUse) {
             manager.startUpdatingLocation();
+        } else {
+            self.delegate?.locationDidFailFindingCurrentLocalityWithError(LocationError.LocationAuthorizationError)
         }
     }
     
@@ -66,6 +75,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 }
 
 enum LocationError: Printable {
+    
     case LocationUnknownError
     case LocationNetworkError
     case LocationAccessibilityError
@@ -73,6 +83,8 @@ enum LocationError: Printable {
     case LocationProximityError
     case LocationBeaconResponseError
     case LocationBeaconsUpdateError
+    case LocationAuthorizationError
+    
     var description: String {
         
         switch self
@@ -91,6 +103,8 @@ enum LocationError: Printable {
             return "Cannot update beacons please try again"
         case .LocationProximityError:
             return "Low proximity signal"
+        case .LocationAuthorizationError:
+            return "Please enable Beacon Finder to use location service"
         }
     }
 }
