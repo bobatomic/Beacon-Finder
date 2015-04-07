@@ -67,6 +67,23 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
+        if state == .Inside {
+            let beaconRegion:CLBeaconRegion = region as! CLBeaconRegion
+            self.manager.startRangingBeaconsInRegion(beaconRegion)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+        //FIXME: Please implement the didEnterRegion //now I need a beacon to see what is happenning 
+        let beaconRegion:CLBeaconRegion = region as! CLBeaconRegion
+        self.manager.startRangingBeaconsInRegion(beaconRegion)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+        //FIXME: Please implement didExitRegion
+    }
+    
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
         let beaconBuilder = IBeaconBuilder()
         let beacons = beaconBuilder.buildIBeaconFromManagerResponse(beacons)
