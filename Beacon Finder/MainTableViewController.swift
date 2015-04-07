@@ -16,10 +16,9 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
+        self.locationManager.delegate = self
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,7 +49,7 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
     }
     
     func locationDidFindCurrentLocality(currentLocality: String) {
-        //FIXME: Implement method for locationDidFindCurrentLocality
+        self.locationManager.startMonitoringRegion()
     }
     
     func locationDidFailFindingCurrentLocalityWithError(error: LocationError) {

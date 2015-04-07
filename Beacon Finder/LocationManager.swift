@@ -12,13 +12,44 @@ import CoreBluetooth
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     
-    let manager = CLLocationManager()
+    let manager:CLLocationManager
     var delegate:LocationManagerDelegate?
+    var region:CLRegion?
+    var locality:String?
+    
+    override init() {
+        self.manager = CLLocationManager()
+        super.init()
+        self.manager.delegate = self
+    }
     
     func requestCurrentLocation() {
         if CLLocationManager.locationServicesEnabled(){
             manager.startUpdatingLocation();
         }
+    }
+    
+    func startMonitoringRegion(){
+        self.manager.startMonitoringForRegion(self.region)
+    }
+    
+    func findLocalityForLocation(location: CLLocation){
+    
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            let placemark:CLPlacemark = placemarks.last as! CLPlacemark
+            self.region = placemark.region
+            self.locality = placemark.locality
+            self.delegate?.locationDidFindCurrentLocality(self.locality!)
+        })
+    }
+    
+    //MARK: CLLocationManagerDelegate methods
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        self.manager.stopUpdatingLocation()
+        let location:CLLocation = locations.last as! CLLocation
+        self.findLocalityForLocation(location)
     }
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -30,12 +61,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
         let beaconBuilder = IBeaconBuilder()
         let beacons = beaconBuilder.buildIBeaconFromManagerResponse(beacons)
-        if (self.delegate?.locationDidupdateRegionWithBeacons(beacons) == nil){
-            self.delegate?.locationDidFailBuildingBeaconsWithError(LocationError.LocationBeaconsUpdateError)
-        }
+        self.delegate!.locationDidupdateRegionWithBeacons(beacons)
     }
 }
-
 
 enum LocationError: Printable {
     case LocationUnknownError
