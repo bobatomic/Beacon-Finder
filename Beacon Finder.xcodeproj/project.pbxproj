@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C43A28E81AD3CC2100BC6416 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A28E71AD3CC2100BC6416 /* AppDelegate.swift */; };
-		C43A28EA1AD3CC2100BC6416 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A28E91AD3CC2100BC6416 /* ViewController.swift */; };
 		C43A28ED1AD3CC2100BC6416 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C43A28EB1AD3CC2100BC6416 /* Main.storyboard */; };
 		C43A28EF1AD3CC2100BC6416 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C43A28EE1AD3CC2100BC6416 /* Images.xcassets */; };
 		C43A28F21AD3CC2100BC6416 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43A28F01AD3CC2100BC6416 /* LaunchScreen.xib */; };
@@ -18,6 +17,8 @@
 		C43A290F1AD3CFD100BC6416 /* MainTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A290E1AD3CFD100BC6416 /* MainTableViewDelegate.swift */; };
 		C43A29171AD3D28400BC6416 /* IBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A29161AD3D28400BC6416 /* IBeacon.swift */; };
 		C43A291B1AD3E2C600BC6416 /* IBeaconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A291A1AD3E2C600BC6416 /* IBeaconTableViewCell.swift */; };
+		C43A291D1AD40C4100BC6416 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A291C1AD40C4100BC6416 /* LocationManager.swift */; };
+		C43A291F1AD40D8700BC6416 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A291E1AD40D8700BC6416 /* LocationManagerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +35,6 @@
 		C43A28E21AD3CC2100BC6416 /* Beacon Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Beacon Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43A28E61AD3CC2100BC6416 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C43A28E71AD3CC2100BC6416 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C43A28E91AD3CC2100BC6416 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C43A28EC1AD3CC2100BC6416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C43A28EE1AD3CC2100BC6416 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C43A28F11AD3CC2100BC6416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -46,6 +46,8 @@
 		C43A290E1AD3CFD100BC6416 /* MainTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewDelegate.swift; sourceTree = "<group>"; };
 		C43A29161AD3D28400BC6416 /* IBeacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBeacon.swift; sourceTree = "<group>"; };
 		C43A291A1AD3E2C600BC6416 /* IBeaconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBeaconTableViewCell.swift; sourceTree = "<group>"; };
+		C43A291C1AD40C4100BC6416 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C43A291E1AD40D8700BC6416 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				C43A28E71AD3CC2100BC6416 /* AppDelegate.swift */,
-				C43A28E91AD3CC2100BC6416 /* ViewController.swift */,
-				C43A29091AD3CDC800BC6416 /* Manager */,
+				C43A29091AD3CDC800BC6416 /* CoreLocation */,
 				C43A29081AD3CDA900BC6416 /* Controllers */,
 				C43A29131AD3D16C00BC6416 /* Models */,
 				C43A29101AD3D07500BC6416 /* CustomCells */,
@@ -144,11 +145,13 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		C43A29091AD3CDC800BC6416 /* Manager */ = {
+		C43A29091AD3CDC800BC6416 /* CoreLocation */ = {
 			isa = PBXGroup;
 			children = (
+				C43A291C1AD40C4100BC6416 /* LocationManager.swift */,
+				C43A291E1AD40D8700BC6416 /* LocationManagerDelegate.swift */,
 			);
-			name = Manager;
+			name = CoreLocation;
 			sourceTree = "<group>";
 		};
 		C43A29101AD3D07500BC6416 /* CustomCells */ = {
@@ -268,12 +271,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C43A29171AD3D28400BC6416 /* IBeacon.swift in Sources */,
-				C43A28EA1AD3CC2100BC6416 /* ViewController.swift in Sources */,
 				C43A290B1AD3CEDA00BC6416 /* MainTableViewController.swift in Sources */,
 				C43A28E81AD3CC2100BC6416 /* AppDelegate.swift in Sources */,
+				C43A291D1AD40C4100BC6416 /* LocationManager.swift in Sources */,
 				C43A290F1AD3CFD100BC6416 /* MainTableViewDelegate.swift in Sources */,
 				C43A290D1AD3CF1E00BC6416 /* MainTableViewDataSource.swift in Sources */,
 				C43A291B1AD3E2C600BC6416 /* IBeaconTableViewCell.swift in Sources */,
+				C43A291F1AD40D8700BC6416 /* LocationManagerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
