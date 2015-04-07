@@ -13,5 +13,6 @@ protocol LocationManagerDelegate {
     func locationDidFindCurrentLocality(currentLocality: String)
     func locationDidFailFindingCurrentLocalityWithError(error: LocationError)
     func locationDidChangeAuthorizationStatus(authorizationStatus: Int)
-    
+    func locationDidupdateRegionWithBeacons(beacons: [IBeacon]!)
+    func locationDidFailBuildingBeaconsWithError(error: LocationError)
 }

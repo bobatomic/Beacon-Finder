@@ -10,20 +10,29 @@ import Foundation
 import CoreLocation
 import CoreBluetooth
 
-class LocationManager: NSObject, CLLocationManagerDelegate, LocationManagerDelegate {
-
-    //MARK: LocationManagerDelegate
+class LocationManager: NSObject, CLLocationManagerDelegate {
     
-    func locationDidChangeAuthorizationStatus(authorizationStatus: Int) {
-        //FIXME: Implement method for locationDidChangeAuthorizationStatus
+    let manager = CLLocationManager()
+    var delegate:LocationManagerDelegate?
+    
+    func requestCurrentLocation() {
+        if CLLocationManager.locationServicesEnabled(){
+            manager.startUpdatingLocation();
+        }
     }
     
-    func locationDidFindCurrentLocality(currentLocality: String) {
-        //FIXME: Implement method for locationDidFindCurrentLocality
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse || status == .AuthorizedAlways {
+            manager.startUpdatingLocation()
+        }
     }
     
-    func locationDidFailFindingCurrentLocalityWithError(error: LocationError) {
-        //FIXME: Implement method for locationDidFailFindingCurrentLocalityWithError
+    func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
+        let beaconBuilder = IBeaconBuilder()
+        let beacons = beaconBuilder.buildIBeaconFromManagerResponse(beacons)
+        if (self.delegate?.locationDidupdateRegionWithBeacons(beacons) == nil){
+            self.delegate?.locationDidFailBuildingBeaconsWithError(LocationError.LocationBeaconsUpdateError)
+        }
     }
 }
 
@@ -34,8 +43,8 @@ enum LocationError: Printable {
     case LocationAccessibilityError
     case LocationCoreRegionError
     case LocationProximityError
-    case LocationBeaconError
-    
+    case LocationBeaconResponseError
+    case LocationBeaconsUpdateError
     var description: String {
         
         switch self
@@ -48,8 +57,10 @@ enum LocationError: Printable {
             return "Please allow Beacon Finder to access your location"
         case .LocationCoreRegionError:
             return "The current region is not supported"
-        case .LocationBeaconError:
+        case .LocationBeaconResponseError:
             return "Beacon not responding please move around"
+        case .LocationBeaconsUpdateError:
+            return "Cannot update beacons please try again"
         case .LocationProximityError:
             return "Low proximity signal"
         }

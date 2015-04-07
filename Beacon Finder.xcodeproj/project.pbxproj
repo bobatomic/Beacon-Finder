@@ -19,6 +19,7 @@
 		C43A291B1AD3E2C600BC6416 /* IBeaconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A291A1AD3E2C600BC6416 /* IBeaconTableViewCell.swift */; };
 		C43A291D1AD40C4100BC6416 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A291C1AD40C4100BC6416 /* LocationManager.swift */; };
 		C43A291F1AD40D8700BC6416 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A291E1AD40D8700BC6416 /* LocationManagerDelegate.swift */; };
+		C43A29211AD4202400BC6416 /* IBeaconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43A29201AD4202400BC6416 /* IBeaconBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		C43A291A1AD3E2C600BC6416 /* IBeaconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBeaconTableViewCell.swift; sourceTree = "<group>"; };
 		C43A291C1AD40C4100BC6416 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C43A291E1AD40D8700BC6416 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
+		C43A29201AD4202400BC6416 /* IBeaconBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBeaconBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				C43A28E71AD3CC2100BC6416 /* AppDelegate.swift */,
+				C43A29221AD4202900BC6416 /* ModelBuilders */,
 				C43A29091AD3CDC800BC6416 /* CoreLocation */,
 				C43A29081AD3CDA900BC6416 /* Controllers */,
 				C43A29131AD3D16C00BC6416 /* Models */,
@@ -168,6 +171,14 @@
 				C43A29161AD3D28400BC6416 /* IBeacon.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		C43A29221AD4202900BC6416 /* ModelBuilders */ = {
+			isa = PBXGroup;
+			children = (
+				C43A29201AD4202400BC6416 /* IBeaconBuilder.swift */,
+			);
+			name = ModelBuilders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +287,7 @@
 				C43A291D1AD40C4100BC6416 /* LocationManager.swift in Sources */,
 				C43A290F1AD3CFD100BC6416 /* MainTableViewDelegate.swift in Sources */,
 				C43A290D1AD3CF1E00BC6416 /* MainTableViewDataSource.swift in Sources */,
+				C43A29211AD4202400BC6416 /* IBeaconBuilder.swift in Sources */,
 				C43A291B1AD3E2C600BC6416 /* IBeaconTableViewCell.swift in Sources */,
 				C43A291F1AD40D8700BC6416 /* LocationManagerDelegate.swift in Sources */,
 			);

@@ -5,29 +5,56 @@
 //  Created by Bob Godwin Obi on 4/7/15.
 //  Copyright (c) 2015 Bob Godwin Obi. All rights reserved.
 //
-
 import UIKit
 
-class MainTableViewController: UITableViewController {
+class MainTableViewController: UITableViewController, LocationManagerDelegate {
 
-    var beacons = [IBeacon]()
+    let locationManager = LocationManager()
     
     @IBOutlet var dataSource: MainTableViewDataSource?
     @IBOutlet var delegate: MainTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        locationManager.delegate = self
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        if beacons.count > 0{
-            dataSource?.beacons = beacons
-        }
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func reloadData(){
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
+    }
+    
+    //MARK: LocationManagerDelegate
+    
+    func locationDidFailBuildingBeaconsWithError(error: LocationError) {
+        let alertView = UIAlertView(title: "Beacon Error", message: error.description, delegate: self, cancelButtonTitle: "OK")
+        alertView.alertViewStyle = .Default
+        alertView.show()
+    }
+    
+    func locationDidupdateRegionWithBeacons(beacons: [IBeacon]!) {
+        self.dataSource?.beacons = beacons
+        reloadData()
+    }
+    
+    func locationDidChangeAuthorizationStatus(authorizationStatus: Int) {
+        //FIXME: Implement method for locationDidChangeAuthorizationStatus
+    }
+    
+    func locationDidFindCurrentLocality(currentLocality: String) {
+        //FIXME: Implement method for locationDidFindCurrentLocality
+    }
+    
+    func locationDidFailFindingCurrentLocalityWithError(error: LocationError) {
+        //FIXME: Implement method for locationDidFailFindingCurrentLocalityWithError
     }
 
     /*
@@ -37,5 +64,7 @@ class MainTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+
 
 }
