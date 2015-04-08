@@ -91,6 +91,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         let beaconBuilder = IBeaconBuilder()
         let beacons = beaconBuilder.buildIBeaconFromManagerResponse(beacons)
         self.delegate!.locationDidUpdateRegionWithBeacons(beacons)
+        //FIXME: returnBeaconWithNearestProximityFromBeacons(beacons: beacons) 
+        //Now find the nearest beacon and make connection to that beacon for internet access
     }
 }
 

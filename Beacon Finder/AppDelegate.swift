@@ -15,28 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        /**
-         * Registering for a notification service
-         */
-        let notificationForegroudAction = UIMutableUserNotificationAction()
-        notificationForegroudAction.activationMode = .Foreground
-        notificationForegroudAction.destructive = false
-        notificationForegroudAction.title = "customer care"
-        notificationForegroudAction.authenticationRequired = false
-        
-        let notificationBackgroundAction = UIMutableUserNotificationAction()
-        notificationBackgroundAction.activationMode = .Background
-        notificationBackgroundAction.destructive = false
-        notificationBackgroundAction.title = "customer disturbance :)"
-        notificationBackgroundAction.authenticationRequired = false
-        var notificationCategory = UIMutableUserNotificationCategory()
-        notificationCategory.identifier = "Bob_Actions"
-        notificationCategory.setActions([notificationForegroudAction, notificationBackgroundAction], forContext: .Default)
-        let notificationCategories:NSSet = NSSet(object: notificationCategory)
-        let notificationType = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
-        let notificationSettings = UIUserNotificationSettings(forTypes: notificationType, categories: notificationCategories as Set<NSObject>)
-        application.registerUserNotificationSettings(notificationSettings)
+        //Registering for a local notification service.
+
+        self.registerForUserLocalNotification(application)
         return true
     }
 
@@ -61,7 +42,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func registerForUserLocalNotification(application: UIApplication){
+    
+        let notificationForegroudAction = UIMutableUserNotificationAction()
+        notificationForegroudAction.activationMode = .Foreground
+        notificationForegroudAction.destructive = false
+        notificationForegroudAction.title = "customer care"
+        notificationForegroudAction.authenticationRequired = false
+        
+        let notificationBackgroundAction = UIMutableUserNotificationAction()
+        notificationBackgroundAction.activationMode = .Background
+        notificationBackgroundAction.destructive = false
+        notificationBackgroundAction.title = "customer disturbance :)"
+        notificationBackgroundAction.authenticationRequired = false
+        
+        var notificationCategory = UIMutableUserNotificationCategory()
+        notificationCategory.identifier = "Bob_Actions"
+        notificationCategory.setActions([notificationForegroudAction, notificationBackgroundAction], forContext: .Default)
+        let notificationCategories:NSSet = NSSet(object: notificationCategory)
+        let notificationType = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
+        let notificationSettings = UIUserNotificationSettings(forTypes: notificationType, categories: notificationCategories as Set<NSObject>)
+        
+        application.registerUserNotificationSettings(notificationSettings)
+    }
 }
 
