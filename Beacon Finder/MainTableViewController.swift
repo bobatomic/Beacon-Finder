@@ -39,6 +39,16 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
     }
     
     //MARK: LocationManagerDelegate
+
+    func locationDidSendNotification() {
+        let notification = UILocalNotification()
+        notification.alertBody = "Hello Bob you can have a coffe in the adidas shop next door"
+        notification.soundName = "Default"
+        //notification.fireDate = NSDate(timeIntervalSinceNow: 10)
+        notification.applicationIconBadgeNumber = 1
+        //UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+    }
     
     func locationDidFailBuildingBeaconsWithError(error: LocationError) {
         self.showErrorMessage(error)
@@ -49,7 +59,7 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
         self.showErrorMessage(error)
     }
     
-    func locationDidupdateRegionWithBeacons(beacons: [IBeacon]!) {
+    func locationDidUpdateRegionWithBeacons(beacons: [IBeacon]!) {
         self.dataSource?.beacons = beacons
         reloadData()
     }
@@ -60,14 +70,14 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
     
     func locationDidFindCurrentLocality(currentLocality: String) {
         self.locationManager.startMonitoringRegion()
+        //FIXME: Just testing the notification
+        self.locationDidSendNotification()
     }
     
     func locationDidFailFindingCurrentLocalityWithError(error: LocationError) {
         //FIXME: Implement method for locationDidFailFindingCurrentLocalityWithError
     }
     
-    
-
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -75,7 +85,4 @@ class MainTableViewController: UITableViewController, LocationManagerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-    
-
-
 }

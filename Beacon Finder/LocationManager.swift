@@ -78,16 +78,19 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         //FIXME: Please implement the didEnterRegion //now I need a beacon to see what is happenning 
         let beaconRegion:CLBeaconRegion = region as! CLBeaconRegion
         self.manager.startRangingBeaconsInRegion(beaconRegion)
+        //Send notification or make a connnection
     }
     
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-        //FIXME: Please implement didExitRegion
+        if region.isKindOfClass(CLBeaconRegion){
+            self.delegate!.locationDidSendNotification()
+        }
     }
     
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
         let beaconBuilder = IBeaconBuilder()
         let beacons = beaconBuilder.buildIBeaconFromManagerResponse(beacons)
-        self.delegate!.locationDidupdateRegionWithBeacons(beacons)
+        self.delegate!.locationDidUpdateRegionWithBeacons(beacons)
     }
 }
 
