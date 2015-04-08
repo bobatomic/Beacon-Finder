@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //Registering for a local notification service.
 
-        self.registerForUserLocalNotification(application)
+        self.registerForUserLocalNotificationForApplication(application)
         return true
     }
 
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func registerForUserLocalNotification(application: UIApplication){
+    func registerForUserLocalNotificationForApplication(application: UIApplication){
     
         let notificationForegroudAction = UIMutableUserNotificationAction()
         notificationForegroudAction.activationMode = .Foreground
